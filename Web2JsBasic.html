@@ -28,26 +28,18 @@
 	<!-- Footer -->
 </body>
 <script type="text/javascript">
-	  //var web3 = new Web3(new Web3.providers.HttpProvider(
-			//"https://kovan.infura.io/rtjlGyAwZ8Vi5KebmL8E"));    
-			 var web3js = new Web3(new Web3.providers.HttpProvider(
-			"http://localhost:7545"));	   	
+	  var web3 = new Web3(new Web3.providers.HttpProvider(
+			"https://kovan.infura.io/rtjlGyAwZ8Vi5KebmL8E"));    
+			 //var web3js = new Web3(new Web3.providers.HttpProvider(
+			//"http://localhost:7545"));	   	
 
 	
 	var account = "0x4c51AD1386771C0C3740B44702a049F14d0363c9";
-	web3js.eth.getBalance(account)
+	web3.eth.getBalance(account)
 	.then(function(value)
 	{
 		document.getElementById('bal').innerHTML = value;
 	}
 );
-	
-   
-	
-	
-	
-
-
-
 </script>
 </html>
