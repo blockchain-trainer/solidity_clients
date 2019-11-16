@@ -9,7 +9,7 @@
 	integrity="sha256-nWBTbvxhJgjslRyuAKJHK+XcZPlCnmIAAMixz6EefVk="
 	crossorigin="anonymous"></script>
 
-<script src="ethereumjs-all-2018-1-17.min.js"></script>
+<!--<script src="ethereumjs-all-2018-1-17.min.js"></script>-->
 <body>
 
 	<!-- !PAGE CONTENT! -->
@@ -29,52 +29,85 @@
 </body>
 <script type="text/javascript">
 	  var web3 = new Web3(new Web3.providers.HttpProvider(
-			"https://kovan.infura.io/rtjlGyAwZ8Vi5KebmL8E"));    
+			"https://kovan.infura.io/v3/511bcafb09ca483c96996eea82e0fdfe"));    
 			 //var web3 = new Web3(new Web3.providers.HttpProvider(
 			//"http://localhost:7545"));	   	
 
 	
-	var account = "0x4d224ffa66C2b309f84b8b424354EB7DeB799A3D";
-	var contractAddress = "0xA35DB891e210ed20E6FDB99c0AD92e0Ff6474000";   
+	var account = "0xb31097eF4BD61B6aA1135C27CD475635298Ac8EC";
+	var contractAddress = "0xbe6673bB4e3283FcfCb20E5934DeB2E036aa0529";   
 	
 	
 	var abi = [
 	{
-		"constant": false,
+		"constant": true,
 		"inputs": [
 			{
-				"name": "x",
+				"internalType": "uint256",
+				"name": "index",
 				"type": "uint256"
 			}
 		],
-		"name": "set",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [],
-		"name": "get",
+		"name": "getEmployee",
 		"outputs": [
 			{
-				"name": "",
+				"internalType": "string",
+				"name": "name",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "age",
 				"type": "uint256"
 			}
 		],
 		"payable": false,
 		"stateMutability": "view",
 		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "getEmployeeCount",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "count",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "name",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "age",
+				"type": "uint256"
+			}
+		],
+		"name": "addEmployee",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
 	}
 ];
 
-var contract = new web3.eth.Contract(abi, contractAddress);
+var structsArr = new web3.eth.Contract(abi, contractAddress);
 
 
-getValue();
-async function getValue(){
-	let name = await contract.methods.get().call({from: account});
+getEmployee();
+async function getEmployee(){
+	let name = await structsArr.methods.getEmployee(1).call({from: account});
 	console.log(name);
 }
 
