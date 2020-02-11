@@ -32,6 +32,4 @@ echo "{
 #create the genesis block
 ./geth --datadir $1ChainData init $1Chain.json
 #start your chain
-./geth --datadir $1ChainData --networkid $2 --nodiscover console --rpc --rpcport "8000" --rpcaddr "0.0.0.0" --rpccorsdomain "*" --rpcapi "eth,net,web3,miner,debug,personal,rpc" --mine 1 
-
-			
+./geth --datadir $1ChainData --networkid $2 --nodiscover console --rpc --rpcport "8000" --rpcaddr "0.0.0.0" --rpccorsdomain "*" --rpcapi "eth,net,web3,miner,debug,personal,rpc" --mine 1 --miner.etherbase=$A
