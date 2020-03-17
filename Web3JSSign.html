@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<title>Solidity Client</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
+
+
+<body>
+
+	<!-- !PAGE CONTENT! -->
+	<div class="w3-content" style="max-width: 1500px">
+
+		<!-- Header -->
+		<header class="w3-panel w3-center" style="padding: 70px 16px">			
+			<h1>Test Solidity Through Web3JS</h1>
+		</header>
+
+		<!-- End Page Content -->
+	</div>
+	<footer
+		class="w3-container w3-padding-64 w3-light-grey w3-center w3-large">		
+	</footer>
+	<!-- Footer -->
+</body>
+<script type="text/javascript">
+	  var web3 = new Web3(new Web3.providers.HttpProvider(
+			"https://ropsten.infura.io/v3/<your-token>"));    
+				   	
+
+let message = web3.utils.sha3("this is a message");
+
+let privateKey = '<your private key>';
+let account = '<account>';
+
+var abi = [
+	{
+		"inputs": [
+			{
+				"internalType": "bytes32",
+				"name": "hash",
+				"type": "bytes32"
+			},
+			{
+				"internalType": "uint8",
+				"name": "_v",
+				"type": "uint8"
+			},
+			{
+				"internalType": "bytes32",
+				"name": "_r",
+				"type": "bytes32"
+			},
+			{
+				"internalType": "bytes32",
+				"name": "_s",
+				"type": "bytes32"
+			}
+		],
+		"name": "verify",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	}
+];
+
+var contract = new web3.eth.Contract(abi, '0xda84614c81a9d050e30f7cde80dd30d249cd1ead');
+
+
+let signatureObject = web3.eth.accounts.sign(message, privateKey)
+console.log(signatureObject)
+
+
+<!-- the signature obbject can be shared and below call be made later-->
+contract.methods.verify(message,web3.utils.toBN(signatureObject.v).toString(),signatureObject.r,signatureObject.s).call({from: account}, function(error, result){
+   console.log(result);
+});
+
+
+</script>
+</html>
